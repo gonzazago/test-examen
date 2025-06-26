@@ -1,6 +1,6 @@
-package com.gonzazago.nauta.orders.delivery.rest
+package com.gonzazago.nauta.orders.delivery.rest.orders
 
-import com.gonzazago.nauta.orders.domain.model.Order
+import com.gonzazago.nauta.orders.application.usecase.orders.CreateOrder
 import com.gonzazago.nauta.orders.domain.model.Booking
 import com.gonzazago.nauta.orders.utils.parse
 import io.vertx.core.impl.logging.LoggerFactory
@@ -10,7 +10,7 @@ import io.vertx.kotlin.coroutines.dispatcher
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class OrderHandler {
+class OrderHandler (private val createOrder: CreateOrder) {
 
     val log = LoggerFactory.getLogger(OrderHandler::class.java)
     fun createOrder(ctx: RoutingContext) {

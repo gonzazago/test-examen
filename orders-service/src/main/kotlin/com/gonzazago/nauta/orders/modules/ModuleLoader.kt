@@ -1,10 +1,10 @@
 package com.gonzazago.nauta.orders.modules
 
 import com.gonzazago.nauta.orders.Server
-import com.gonzazago.nauta.orders.delivery.rest.OrderHandler
+import com.gonzazago.nauta.orders.application.usecase.orders.CreateOrder
+import com.gonzazago.nauta.orders.delivery.rest.orders.OrderHandler
 import com.typesafe.config.Config
 import com.typesafe.config.ConfigFactory
-import io.vertx.core.json.JsonObject
 import io.vertx.core.Vertx
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
@@ -16,7 +16,8 @@ object ModuleLoader {
         single { vertxInstance }
         single<Config> { ConfigFactory.load() }
         single { Server() }
-        single { OrderHandler() }
+        single { OrderHandler(get()) }
+        single { CreateOrder(get()) }
 
         mapper()
     }
