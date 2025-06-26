@@ -1,4 +1,4 @@
-package com.gonzazago.nauta.orders
+package com.gonzazago.nauta.orders.routes
 
 import io.vertx.ext.web.Router
 import io.vertx.core.Vertx
@@ -12,9 +12,7 @@ fun createRouter(vertx: Vertx): Router {
             .putHeader("content-type", "text/plain")
             .end("OK")
     }
-
-    // Ejemplo: podrías agregar un sub-router así
-    // router.mountSubRouter("/orders", ordersRouter(vertx))
+    router.mountSubRouter("/v1/orders", ordersRoutes(vertx))
 
     return router
 }
