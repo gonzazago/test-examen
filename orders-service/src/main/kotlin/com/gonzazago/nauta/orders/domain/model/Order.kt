@@ -10,3 +10,8 @@ data class Order(
 data class Invoice(
     val invoice: String
 )
+
+data class Booking(
+    val booking: String,
+    val orders: List<Order>
+)
