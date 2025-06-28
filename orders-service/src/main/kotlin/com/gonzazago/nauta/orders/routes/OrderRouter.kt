@@ -8,14 +8,12 @@ import io.vertx.ext.web.handler.BodyHandler
 class OrderRouter(
     private val orderHandler: OrderHandler
 ) {
-
-    fun ordersRoutes(vertx: Vertx): Router {
-        val router = Router.router(vertx)
-        router.route().handler(BodyHandler.create()) // Necesario para leer el body
-
-
-        router.post("/").handler(orderHandler::createOrder)
-
-        return router
-    }
+//
+//    fun ordersRoutes(vertx: Vertx): Router {
+//        val router = Router.router(vertx)
+//        router.route().handler(BodyHandler.create())
+//        router.post("/email").handler(orderHandler::handleEmailIngestion)
+//
+//        return router
+//    }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="com.gonzazago.nauta.orders" target="17" />
+      <module name="com.gonzazago.nauta.orders.main" target="17" />
+      <module name="com.gonzazago.nauta.orders.test" target="17" />
+      <module name="orders" target="17" />
+      <module name="orders.main" target="17" />
+      <module name="orders.test" target="17" />
+      <module name="test-examen" target="17" />
+      <module name="test-examen.booking-service.main" target="17" />
+      <module name="test-examen.booking-service.test" target="17" />
+      <module name="test-examen.container-service" target="17" />
+      <module name="test-examen.container-service.main" target="17" />
+      <module name="test-examen.container-service.test" target="17" />
+      <module name="test-examen.main" target="17" />
+      <module name="test-examen.orchestator-app" target="17" />
+      <module name="test-examen.orchestator-app.main" target="17" />
+      <module name="test-examen.orchestator-app.test" target="17" />
+      <module name="test-examen.orders-service" target="17" />
+      <module name="test-examen.orders-service.main" target="17" />
+      <module name="test-examen.orders-service.test" target="17" />
+      <module name="test-examen.test" target="17" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

@@ -3,16 +3,16 @@ import org.gradle.api.tasks.testing.logging.TestLogEvent.*
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-  kotlin ("jvm") version "1.9.0"
-  application
-  id("com.github.johnrengelman.shadow") version "7.1.2"
+    kotlin("jvm") version "1.9.23"
+    application
+    id("com.github.johnrengelman.shadow") version "7.1.2"
 }
 
 group = "com.gonzazago.nauta"
 version = "1.0.0-SNAPSHOT"
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 val vertxVersion = "4.5.16"
@@ -25,46 +25,61 @@ val watchForChange = "src/**/*"
 val doOnChange = "${projectDir}/gradlew classes"
 
 application {
-  mainClass.set(launcherClassName)
+    mainClass.set(launcherClassName)
 }
 
 dependencies {
-  implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
-  implementation("io.insert-koin:koin-core:3.5.3")
-  implementation("io.vertx:vertx-web")
-  implementation("io.vertx:vertx-mysql-client")
-  implementation("io.vertx:vertx-lang-kotlin-coroutines")
-  implementation("io.vertx:vertx-lang-kotlin")
-  implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
-  implementation("com.typesafe:config:1.4.2")
-  implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1")
-  implementation(kotlin("stdlib-jdk8"))
-  testImplementation("io.vertx:vertx-junit5")
-  testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
+    implementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
+    implementation("io.insert-koin:koin-core:3.5.3")
+    implementation("io.vertx:vertx-web")
+    implementation("io.vertx:vertx-lang-kotlin-coroutines")
+    implementation("io.vertx:vertx-lang-kotlin")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.1")
+    implementation("com.typesafe:config:1.4.2")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.17.1")
+    implementation(kotlin("stdlib-jdk8"))
 
 
-  implementation("io.vertx:vertx-jdbc-client:4.5.4")
-  implementation("com.h2database:h2:2.2.224")
+    implementation("com.h2database:h2:2.2.224")
+    implementation("io.vertx:vertx-jdbc-client:$vertxVersion")
+    implementation("io.vertx:vertx-mysql-client:$vertxVersion")
+
+    implementation("io.agroal:agroal-api:1.15")
+    implementation("io.agroal:agroal-pool:1.15")
+
+    testImplementation("io.vertx:vertx-junit5")
+    testImplementation("org.junit.jupiter:junit-jupiter:$junitJupiterVersion")
+    testImplementation(platform("io.vertx:vertx-stack-depchain:$vertxVersion"))
+    testImplementation("io.vertx:vertx-junit5")
+    testImplementation("org.junit.jupiter:junit-jupiter-api")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.3.1")
 }
 
 val compileKotlin: KotlinCompile by tasks
 compileKotlin.kotlinOptions.jvmTarget = "17"
 
 tasks.withType<ShadowJar> {
-  archiveClassifier.set("fat")
-  manifest {
-    attributes(mapOf("Main-Verticle" to mainVerticleName))
-  }
-  mergeServiceFiles()
+    archiveClassifier.set("fat")
+    manifest {
+        attributes(mapOf("Main-Verticle" to mainVerticleName))
+    }
+    mergeServiceFiles()
 }
 
 tasks.withType<Test> {
-  useJUnitPlatform()
-  testLogging {
-    events = setOf(PASSED, SKIPPED, FAILED)
-  }
+    useJUnitPlatform()
+    testLogging {
+        events = setOf(PASSED, SKIPPED, FAILED)
+    }
 }
 
 tasks.withType<JavaExec> {
-  args = listOf("run", mainVerticleName, "--redeploy=$watchForChange", "--launcher-class=$launcherClassName", "--on-redeploy=$doOnChange")
+    args = listOf(
+        "run",
+        mainVerticleName,
+        "--redeploy=$watchForChange",
+        "--launcher-class=$launcherClassName",
+        "--on-redeploy=$doOnChange"
+    )
 }
